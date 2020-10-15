@@ -9,17 +9,24 @@ class CountdownTimer:
         self.init_time = self.init_time*60
         self.counter = 0
 
-    def run(self):
+    def __timerloop(self):
         while self.counter < self.init_time:
             time.sleep(1)
             self.counter += 1
             print("time left: [ {}:{} ]\r".format((self.init_time-self.counter)//60, (self.init_time-self.counter)%60), end="")
 
+    def run(self):
+        try:
+            self.__timerloop()
+        except KeyboardInterrupt:
+            print("\r", end="")
+            print("timer halted.")
+
 class CountupTimer:
     def __init__(self):
         self.counter = 0
 
-    def run(self):
+    def __timerloop(self):
         while True:
             time.sleep(1)
             self.counter += 1
@@ -31,10 +38,13 @@ class CountupTimer:
             self.time = "[ {}:{} ]\r".format(minutes, seconds)
             print(colored("elapsed time: {}\r".format(self.time), font_color), end="")
 
+    def run(self):
+        try:
+            self.__timerloop()
+        except KeyboardInterrupt:
+            print("\r", end="")
+            print("timer halted at " + self.time)
+
 if __name__ == "__main__":
     timer = CountupTimer()
-    try:
-        timer.run()
-    except KeyboardInterrupt:
-        print("\r", end="")
-        print("Timer halted at " + timer.time)
+    timer.run()
