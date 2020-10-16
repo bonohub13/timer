@@ -33,7 +33,7 @@ class CountupTimer:
             seconds = seconds_tmp if seconds_tmp > 9 else "0{}".format(seconds_tmp)
             minutes_tmp = self.counter//60
             minutes = minutes_tmp if minutes_tmp > 9 else "0{}".format(minutes_tmp)
-            font_color = "white" if minutes_tmp < 3 else if minutes_tmp < 5 "yellow" else "red"
+            font_color = "white" if minutes_tmp < 3 else "yellow" if minutes_tmp < 5 else "red"
             self.time = "[ {}:{} ]\r".format(minutes, seconds)
             print(colored("elapsed time: {}\r".format(self.time), font_color), end="")
 
